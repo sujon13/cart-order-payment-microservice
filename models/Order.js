@@ -1,11 +1,34 @@
 const mongoose = require('mongoose');
 
-const CartSchema = new mongoose.Schema({
+const OrderSchema = new mongoose.Schema({
     userId: {
         type: String,
         required: true
     },
+    phoneNumber: {
+        type: Number,
+        required: true
+    },
+    address: {
+        district:{
+            type: String,
+            required: true
+        },
+        details: {
+            type: String,
+            required: true
+        }
+    },
     totalPrice: {
+        type: Number,
+        required: true
+    },
+    status : {
+        type: String,
+        required: true,
+        default: 'pending'// other options: completed, cancelled
+    },
+    orderId: {
         type: Number,
         required: true
     },
@@ -51,4 +74,4 @@ const CartSchema = new mongoose.Schema({
     }  
 });
 
-module.exports = mongoose.model('Cart', CartSchema);
+module.exports = mongoose.model('Order', OrderSchema);

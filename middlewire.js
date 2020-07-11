@@ -1,6 +1,7 @@
 const Cart = require('./models/Cart');
 const jwt = require('jsonwebtoken');
 const createError = require('http-errors');
+const Order = require('./models/Order');
 
 const createCartEntry = (req, res, next) => {
     const body = req.body;
@@ -15,6 +16,26 @@ const createCartEntry = (req, res, next) => {
     next();
 };
 
+const createOrder = (req, res, next) => {
+    if( typeof createOrder.orderId === 'undefined' ) {
+        createOrder.orderId = 10000;
+    }
+    createOrder.orderId++;
+
+    const body = req.body;
+    const order = new Order({
+        userId: req.user.user_id,
+        phoneNumber: body.phoneNumber,
+        address: body.address,
+        totalPrice: body.totalPrice,
+        orderId: createOrder.orderId,
+        productList: body.productList
+    });
+
+    req.order = order
+    next();
+}
+
 const log = (req, res, next) => {
     const logObject = {
         path: req.originalUrl,
@@ -28,25 +49,6 @@ const log = (req, res, next) => {
     next();
 }
 
-const verifyToken = async (req, res, next) => {
-    const token = req.header('Authorization');
-    if(!token)return next(createError(401, 'Access Denied! Token is invalid'));
-
-    //verify a token symmetric
-    jwt.verify(token, process.env.TOKEN_SECRET, function(err, decoded) {
-        console.log(decoded);
-        if(err) {
-            next(createError(401, err));
-        } else if (decoded.isAccessToken === false) {
-            next(createError(401, 'Access Denied! Token is invalid'));
-        } else {
-            req.user = decoded;
-            next();
-        }
-    });
-
-}
-
-module.exports.verifyToken = verifyToken;
 module.exports.createCartEntry = createCartEntry;
+module.exports.createOrder = createOrder;
 module.exports.log = log;

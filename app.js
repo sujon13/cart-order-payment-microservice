@@ -12,9 +12,12 @@ const { log } = require('./middlewire');
 app.use(log);
 
 
+
 // import routes
 const cartRoute = require('./routes/cart');
-app.use('/api/v1/cart', cartRoute);
+app.use('/api/v1/carts', cartRoute);
+const orderRoute = require('./routes/order');
+app.use('/api/v1/orders', orderRoute);
 
 
 // catch 404 and forward to error handler
