@@ -35,7 +35,7 @@ const CartSchema = new mongoose.Schema({
                 type: Number,
                 required: true
             },
-            subTotal:{
+            subTotal: {
                 type: Number,
                 required: true
             }
@@ -48,7 +48,7 @@ const CartSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
-    }  
+    }
 });
 
 module.exports = mongoose.model('Cart', CartSchema);

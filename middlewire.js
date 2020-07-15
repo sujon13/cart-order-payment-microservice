@@ -17,7 +17,7 @@ const createCartEntry = (req, res, next) => {
 };
 
 const createOrder = (req, res, next) => {
-    if( typeof createOrder.orderId === 'undefined' ) {
+    if (typeof createOrder.orderId === 'undefined') {
         createOrder.orderId = 10000;
     }
     createOrder.orderId++;
@@ -32,22 +32,22 @@ const createOrder = (req, res, next) => {
         productList: body.productList
     });
 
-    req.order = order
+    req.order = order;
     next();
-}
+};
 
 const log = (req, res, next) => {
     const logObject = {
         path: req.originalUrl,
         method: req.method
     };
-    
-    if(req.method === 'POST') {
+
+    if (req.method === 'POST') {
         logObject.body = req.body;
     }
     console.dir(logObject);
     next();
-}
+};
 
 module.exports.createCartEntry = createCartEntry;
 module.exports.createOrder = createOrder;

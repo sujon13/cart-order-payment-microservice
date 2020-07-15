@@ -10,7 +10,7 @@ const OrderSchema = new mongoose.Schema({
         required: true
     },
     address: {
-        district:{
+        district: {
             type: String,
             required: true
         },
@@ -23,10 +23,10 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    status : {
+    status: {
         type: String,
         required: true,
-        default: 'pending'// other options: completed, cancelled
+        default: 'pending' // other options: completed, cancelled
     },
     orderId: {
         type: Number,
@@ -58,7 +58,7 @@ const OrderSchema = new mongoose.Schema({
                 type: Number,
                 required: true
             },
-            subTotal:{
+            subTotal: {
                 type: Number,
                 required: true
             }
@@ -71,7 +71,7 @@ const OrderSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
-    }  
+    }
 });
 
 module.exports = mongoose.model('Order', OrderSchema);
